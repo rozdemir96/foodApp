@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+    <changeSet id="002-insert-test-users" author="foodly">
+        <comment>Test kullanıcıları ekleniyor (BPMN simülasyonu için)</comment>
+        
+        <insert tableName="user">
+            <column name="id" value="1"/>
+            <column name="username" value="customer1"/>
+            <column name="email" value="customer1@test.com"/>
+            <column name="first_name" value="Ahmet"/>
+            <column name="last_name" value="Yılmaz"/>
+            <column name="role" value="CUSTOMER"/>
+            <column name="is_active" valueBoolean="true"/>
+        </insert>
+
+        <insert tableName="user">
+            <column name="id" value="2"/>
+            <column name="username" value="chef"/>
+            <column name="email" value="chef@test.com"/>
+            <column name="first_name" value="Mehmet"/>
+            <column name="last_name" value="Şef"/>
+            <column name="role" value="ADMIN"/>
+            <column name="is_active" valueBoolean="true"/>
+        </insert>
+
+        <insert tableName="user">
+            <column name="id" value="3"/>
+            <column name="username" value="kitchen"/>
+            <column name="email" value="kitchen@test.com"/>
+            <column name="first_name" value="Ayşe"/>
+            <column name="last_name" value="Mutfak"/>
+            <column name="role" value="ADMIN"/>
+            <column name="is_active" valueBoolean="true"/>
+        </insert>
+
+        <insert tableName="user">
+            <column name="id" value="4"/>
+            <column name="username" value="courier"/>
+            <column name="email" value="courier@test.com"/>
+            <column name="first_name" value="Ali"/>
+            <column name="last_name" value="Kurye"/>
+            <column name="role" value="ADMIN"/>
+            <column name="is_active" valueBoolean="true"/>
+        </insert>
+
+        <insert tableName="user">
+            <column name="id" value="5"/>
+            <column name="username" value="customer2"/>
+            <column name="email" value="customer2@test.com"/>
+            <column name="first_name" value="Fatma"/>
+            <column name="last_name" value="Demir"/>
+            <column name="role" value="CUSTOMER"/>
+            <column name="is_active" valueBoolean="true"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>
