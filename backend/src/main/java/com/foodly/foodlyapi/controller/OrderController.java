@@ -67,23 +67,23 @@ public class OrderController {
             **Belirli bir kullanıcıya atanmış bekleyen BPMN task'larını getirir**
             
             **Kullanıcı Rolleri:**
-            - `chef` → Sipariş onaylama (reviewOrder)
+            - `restaurant` → Sipariş onaylama (reviewOrder)
             - `kitchen` → Sipariş hazırlama (prepareOrder)
             - `courier` → Teslimat (shipOrder)
             
             **Örnek Kullanım:**
             ```
-            GET /api/orders/tasks/chef
+            GET /api/orders/tasks/restaurant
             ```
             
             **Sonuç:** Task listesi (id, name, assignee bilgileriyle)
             
-            **Not:** Ödeme onaylanmış siparişler için chef'in task'ı görünür
+            **Not:** Ödeme onaylanmış siparişler için restoran'ın task'ı görünür
             """
     )
     @GetMapping("/tasks/{assignee}")
     public ResponseEntity<List<TaskDto>> getTasksByAssignee(
-            @Parameter(description = "Kullanıcı rolü (chef, kitchen, courier)", example = "chef")
+            @Parameter(description = "Kullanıcı rolü (restaurant, kitchen, courier)", example = "restaurant")
             @PathVariable String assignee) {
         log.info("Task listesi sorgulanıyor - Assignee: {}", assignee);
         List<TaskDto> tasks = orderService.getTasksByAssignee(assignee);
@@ -97,7 +97,7 @@ public class OrderController {
             
             **Task Türlerine Göre Request Body:**
             
-            **Chef Onayı (reviewOrder):**
+            **Restoran Onayı (reviewOrder):**
             ```json
             {
               "approved": true

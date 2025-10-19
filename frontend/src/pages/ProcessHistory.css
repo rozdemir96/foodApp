@@ -1,0 +1,145 @@
+.process-history {
+  padding: 40px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.process-history h1 {
+  color: #333;
+  margin-bottom: 30px;
+  font-size: 32px;
+}
+
+.search-container {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+}
+
+.search-box {
+  display: flex;
+  gap: 15px;
+}
+
+.search-input {
+  flex: 1;
+  padding: 15px;
+  border: 2px solid #e0e0e0;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.btn-search {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: transform 0.2s;
+  white-space: nowrap;
+}
+
+.btn-search:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.btn-search:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.info-hint {
+  margin-top: 15px;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 5px;
+  border-left: 4px solid #667eea;
+}
+
+.info-hint p {
+  margin: 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.error-box {
+  background: #fee;
+  border: 1px solid #fcc;
+  color: #c33;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+}
+
+.error-box p {
+  margin: 0;
+}
+
+.history-container {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.history-container h2 {
+  color: #333;
+  margin-bottom: 25px;
+  font-size: 24px;
+}
+
+.placeholder {
+  background: white;
+  padding: 60px 30px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.placeholder p {
+  color: #999;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.no-history-message {
+  text-align: center;
+  padding: 40px;
+  background: #fff3cd;
+  border: 2px solid #ffc107;
+  border-radius: 8px;
+}
+
+.no-history-message .warning-icon {
+  font-size: 48px;
+  margin: 0 0 20px 0;
+}
+
+.no-history-message h3 {
+  color: #856404;
+  margin: 0 0 15px 0;
+  font-size: 20px;
+}
+
+.no-history-message p {
+  color: #856404;
+  margin: 10px 0;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.no-history-message strong {
+  font-weight: 700;
+}

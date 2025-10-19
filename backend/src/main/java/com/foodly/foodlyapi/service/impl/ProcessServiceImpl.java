@@ -61,6 +61,7 @@ public class ProcessServiceImpl implements ProcessService {
                 .id(process.getId())
                 .processDefinitionId(process.getProcessDefinitionId())
                 .processDefinitionKey(process.getProcessDefinitionKey())
+                .processDefinitionName(process.getProcessDefinitionName())
                 .startTime(process.getStartTime())
                 .status("ACTIVE")
                 .variables(variables)
@@ -81,8 +82,58 @@ public class ProcessServiceImpl implements ProcessService {
                 .list();
         
         return processes.stream()
-                .map(this::convertHistoricToDto)
+                .map(process -> {
+                    ProcessInstanceDto dto = convertHistoricToDto(process);
+                    // Process variables'dan orderId'yi al ve order status'üne bak
+                    enrichProcessWithOrderStatus(dto, process);
+                    return dto;
+                })
                 .collect(Collectors.toList());
+    }
+    
+    /**
+     * Process DTO'ya order bilgilerini ekle
+     */
+    private void enrichProcessWithOrderStatus(ProcessInstanceDto dto, HistoricProcessInstance process) {
+        try {
+            // Process variables'dan orderId al
+            Map<String, Object> variables = historyService.createHistoricVariableInstanceQuery()
+                    .processInstanceId(process.getId())
+                    .list()
+                    .stream()
+                    .collect(Collectors.toMap(
+                            var -> var.getVariableName(),
+                            var -> var.getValue()
+                    ));
+            
+            if (variables.containsKey("orderId")) {
+                Long orderId = ((Number) variables.get("orderId")).longValue();
+                orderRepository.findById(orderId).ifPresent(order -> {
+                    // Order status'üne göre Türkçe deleteReason belirle
+                    String status = order.getStatus().name();
+                    
+                    if (status.equals("REJECTED")) {
+                        // paymentApproved variable'ını kontrol et
+                        // false ise ödeme reddi, yoksa restoran reddi
+                        Object paymentApproved = variables.get("paymentApproved");
+                        Object approved = variables.get("approved");
+                        
+                        if (paymentApproved != null && Boolean.FALSE.equals(paymentApproved)) {
+                            dto.setDeleteReason("Reddedildi - Ödeme başarısız oldu");
+                        } else if (approved != null && Boolean.FALSE.equals(approved)) {
+                            dto.setDeleteReason("Reddedildi - Restoran siparişi reddetti");
+                        } else {
+                            // Fallback - kesin değil ama rejected
+                            dto.setDeleteReason("Reddedildi - Sipariş iptal edildi");
+                        }
+                    } else if (status.equals("DELIVERED")) {
+                        dto.setDeleteReason("Başarıyla Tamamlandı - Teslim edildi");
+                    }
+                });
+            }
+        } catch (Exception e) {
+            log.warn("Could not enrich process {} with order status: {}", process.getId(), e.getMessage());
+        }
     }
     
     /**
@@ -93,9 +144,11 @@ public class ProcessServiceImpl implements ProcessService {
                 .id(process.getId())
                 .processDefinitionId(process.getProcessDefinitionId())
                 .processDefinitionKey(process.getProcessDefinitionKey())
+                .processDefinitionName(process.getProcessDefinitionName())
                 .startTime(process.getStartTime())
                 .endTime(process.getEndTime())
                 .status("COMPLETED")
+                .deleteReason(process.getDeleteReason())
                 .build();
     }
 

@@ -24,7 +24,7 @@ public class TaskHistoryDto {
     private String name;
     
     /**
-     * Atanan kişi (chef, kitchen, courier)
+     * Atanan kişi (restaurant, kitchen, courier)
      */
     private String assignee;
     

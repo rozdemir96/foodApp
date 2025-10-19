@@ -29,7 +29,7 @@ public class TaskDto {
     private String description;
     
     /**
-     * Atanan kişi (chef, kitchen, courier)
+     * Atanan kişi (restaurant, kitchen, courier)
      */
     private String assignee;
     

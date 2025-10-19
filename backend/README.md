@@ -45,8 +45,8 @@ Bu proje, **BPMN 2.0 (Business Process Model and Notation)** konseptlerini öğr
     ▼             ▼
 ┌─────────┐   [REJECTED]
 │Siparişi │
-│ Onayla  │  ◄── UserTask (chef)
-│ (Chef)  │      approved: true/false
+│ Onayla  │  ◄── UserTask (restaurant)
+│(Restoran)│     approved: true/false
 └────┬────┘
      │
      ▼
@@ -130,12 +130,12 @@ Content-Type: application/json
 
 ---
 
-### ADIM 2: Chef Görevlerini Listele
+### ADIM 2: Restoran Görevlerini Listele
 
-Ödeme onaylanan siparişler için chef'e atanan görevleri görüntüleyin.
+Ödeme onaylanan siparişler için restoran'a atanan görevleri görüntüleyin.
 
 ```text
-GET /api/orders/tasks/chef
+GET /api/orders/tasks/restaurant
 ```
 
 **Yanıt:**
@@ -144,7 +144,7 @@ GET /api/orders/tasks/chef
   {
     "id": "task-12345",
     "name": "Siparişi Onayla",
-    "assignee": "chef",
+    "assignee": "restaurant",
     "createTime": "2025-10-18T14:30:05",
     "processInstanceId": "44bf4bea-ac4a-11f0-bd47-4e936128c6c4"
   }
@@ -153,7 +153,7 @@ GET /api/orders/tasks/chef
 
 ---
 
-### ADIM 3: Chef Siparişi Onaylasın
+### ADIM 3: Restoran Siparişi Onaylasın
 
 ```text
 POST /api/orders/tasks/task-12345/complete
@@ -170,7 +170,7 @@ Content-Type: application/json
 
 ### ADIM 4: Mutfak Görevlerini Listele
 
-Chef onayladıysa, mutfağa hazırlama görevi düşer.
+Restoran onayladıysa, mutfağa hazırlama görevi düşer.
 
 ```text
 GET /api/orders/tasks/kitchen
@@ -257,7 +257,7 @@ Sürecin hangi adımlardan geçtiğini, ne kadar sürdüğünü gösterir.
 [
   {
     "taskName": "Siparişi Onayla",
-    "assignee": "chef",
+    "assignee": "restaurant",
     "startTime": "2025-10-18T14:30:05",
     "endTime": "2025-10-18T14:32:10",
     "durationInMillis": 125000
@@ -308,14 +308,14 @@ BPMN XML:
 ```text
 <userTask id="reviewOrder"
           name="Siparişi Onayla"
-          flowable:assignee="chef"/>
+          flowable:assignee="restaurant"/>
 ```
 
 Java Kullanımı:
 ```text
 // Görevi listele
 List<Task> tasks = taskService.createTaskQuery()
-    .taskAssignee("chef")
+    .taskAssignee("restaurant")
     .list();
 
 // Görevi tamamla
@@ -400,12 +400,12 @@ public class OrderStatusUpdateListener implements ExecutionListener {
 | Durum | Açıklama |
 |-------|----------|
 | `PENDING` | Sipariş oluşturuldu, ödeme bekleniyor |
-| `PAYMENT_APPROVED` | Ödeme onaylandı, chef onayı bekleniyor |
-| `ORDER_APPROVED` | Chef onayladı, hazırlık aşamasında |
+| `PAYMENT_APPROVED` | Ödeme onaylandı, restoran onayı bekleniyor |
+| `ORDER_APPROVED` | Restoran onayladı, hazırlık aşamasında |
 | `PREPARING` | Mutfakta hazırlanıyor |
 | `READY_FOR_DELIVERY` | Kurye teslim almayı bekliyor |
 | `DELIVERED` | Teslim edildi |
-| `REJECTED` | Reddedildi (ödeme veya chef reddi) |
+| `REJECTED` | Reddedildi (ödeme veya restoran reddi) |
 
 ---
 
@@ -413,7 +413,7 @@ public class OrderStatusUpdateListener implements ExecutionListener {
 
 ### Senaryo 1: Başarılı Sipariş Akışı
 1. Sipariş oluşturulur → Ödeme onaylanır (paymentApproved = true).
-2. Chef görevi düşer; chef onaylar (approved = true) → sipariş `ORDER_APPROVED` durumuna geçer.
+2. Restoran görevi düşer; restoran onaylar (approved = true) → sipariş `ORDER_APPROVED` durumuna geçer.
 3. Mutfak hazırlama görevini tamamlar → sipariş `PREPARING` ve sonrasında `READY_FOR_DELIVERY` durumlarına güncellenir.
 4. Kurye teslimat görevini tamamlar → sipariş `DELIVERED` durumuna geçer.
 
@@ -427,9 +427,9 @@ Sürecin başarılı tamamlanmasıyla birlikte şu şeyler olur:
 1. Sipariş oluştur → Ödeme reddedilir
 2. Süreç REJECTED ile sonlanır
 
-### Senaryo 3: Chef Reddi
+### Senaryo 3: Restoran Reddi
 1. Sipariş oluştur → Ödeme onaylanır
-2. Chef reddeder (`approved: false`)
+2. Restoran reddeder (`approved: false`)
 3. Süreç REJECTED ile sonlanır
 
 ---

@@ -20,10 +20,10 @@
 
         <insert tableName="users">
             <column name="id" value="2"/>
-            <column name="username" value="chef"/>
-            <column name="email" value="chef@test.com"/>
+            <column name="username" value="restaurant"/>
+            <column name="email" value="restaurant@test.com"/>
             <column name="first_name" value="Mehmet"/>
-            <column name="last_name" value="Şef"/>
+            <column name="last_name" value="Restoran"/>
             <column name="role" value="ADMIN"/>
             <column name="is_active" valueBoolean="true"/>
         </insert>

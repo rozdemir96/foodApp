@@ -119,6 +119,22 @@ public class OrderServiceImpl implements OrderService {
          * 
          * Task tamamlandığında BPMN süreci bir sonraki adıma ilerler
          */
+        
+        // Restoran reddetmesi kontrolü - approved=false ise order'ı REJECTED yap
+        if (variables.containsKey("approved") && Boolean.FALSE.equals(variables.get("approved"))) {
+            Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+            if (task != null) {
+                Long orderId = (Long) runtimeService.getVariable(task.getProcessInstanceId(), "orderId");
+                if (orderId != null) {
+                    orderRepository.findById(orderId).ifPresent(order -> {
+                        order.setStatus(OrderStatus.REJECTED);
+                        orderRepository.save(order);
+                        log.info("Restoran siparişi reddetti - Order ID: {} REJECTED olarak işaretlendi", orderId);
+                    });
+                }
+            }
+        }
+        
         taskService.complete(taskId, variables);
         log.info("Task tamamlandı - Task ID: {}", taskId);
     }

@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public enum UserRole {
-    CHEF(0, "Şef"),
+    RESTAURANT(0, "Restoran"),
     KITCHEN(1, "Mutfak Personeli"),
     DELIVERY(2, "Kurye"),
     ADMIN(3, "Yönetici");

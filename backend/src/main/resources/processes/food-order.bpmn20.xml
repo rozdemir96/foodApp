@@ -4,7 +4,7 @@
     <startEvent id="start" name="Sipariş Alındı"/>
     <serviceTask id="paymentTask" name="Ödemeyi Onayla" flowable:delegateExpression="${paymentApprovalDelegate}"/>
     <exclusiveGateway id="paymentApprovedGateway" name="Ödeme Onaylandı mı?"/>
-    <userTask id="reviewOrder" name="Siparişi Onayla" flowable:assignee="chef">
+    <userTask id="reviewOrder" name="Siparişi Onayla" flowable:assignee="restaurant">
       <extensionElements>
         <flowable:executionListener event="start" delegateExpression="${orderStatusUpdateListener}"/>
       </extensionElements>

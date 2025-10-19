@@ -29,8 +29,8 @@ public class ProcessController {
             **Şu anda devam eden (aktif) tüm BPMN süreçlerini getirir**
             
             **Ne zaman aktif olur:**
-            - Ödeme onaylanmış ama chef henüz onaylamamış
-            - Chef onaylamış ama mutfak hazırlamamış
+            - Ödeme onaylanmış ama restoran henüz onaylamamış
+            - Restoran onaylamış ama mutfak hazırlamamış
             - Mutfak hazırlamış ama kurye teslim etmemiş
             
             **Örnek Kullanım:**
@@ -56,7 +56,7 @@ public class ProcessController {
             **Ne zaman tamamlanır:**
             - Sipariş başarıyla teslim edildi (DELIVERED)
             - Ödeme reddedildi (REJECTED)
-            - Chef siparişi reddetti (REJECTED)
+            - Restoran siparişi reddetti (REJECTED)
             
             **Örnek Kullanım:**
             ```

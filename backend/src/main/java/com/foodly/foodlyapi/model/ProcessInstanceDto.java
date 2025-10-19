@@ -48,4 +48,14 @@ public class ProcessInstanceDto {
      * Süreç değişkenleri (orderId, userId, approved vb.)
      */
     private Map<String, Object> variables;
+    
+    /**
+     * Süreç sonlanma nedeni (rejected, cancelled vb.)
+     */
+    private String deleteReason;
+    
+    /**
+     * Process definition name (human readable)
+     */
+    private String processDefinitionName;
 }
