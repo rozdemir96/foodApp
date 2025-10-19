@@ -8,7 +8,7 @@
     <changeSet id="002-insert-test-users" author="foodly">
         <comment>Test kullanıcıları ekleniyor (BPMN simülasyonu için)</comment>
         
-        <insert tableName="user">
+        <insert tableName="users">
             <column name="id" value="1"/>
             <column name="username" value="customer1"/>
             <column name="email" value="customer1@test.com"/>
@@ -18,7 +18,7 @@
             <column name="is_active" valueBoolean="true"/>
         </insert>
 
-        <insert tableName="user">
+        <insert tableName="users">
             <column name="id" value="2"/>
             <column name="username" value="chef"/>
             <column name="email" value="chef@test.com"/>
@@ -28,7 +28,7 @@
             <column name="is_active" valueBoolean="true"/>
         </insert>
 
-        <insert tableName="user">
+        <insert tableName="users">
             <column name="id" value="3"/>
             <column name="username" value="kitchen"/>
             <column name="email" value="kitchen@test.com"/>
@@ -38,7 +38,7 @@
             <column name="is_active" valueBoolean="true"/>
         </insert>
 
-        <insert tableName="user">
+        <insert tableName="users">
             <column name="id" value="4"/>
             <column name="username" value="courier"/>
             <column name="email" value="courier@test.com"/>
@@ -48,7 +48,7 @@
             <column name="is_active" valueBoolean="true"/>
         </insert>
 
-        <insert tableName="user">
+        <insert tableName="users">
             <column name="id" value="5"/>
             <column name="username" value="customer2"/>
             <column name="email" value="customer2@test.com"/>
